@@ -183,9 +183,7 @@ async function httpForgotPassword(req, res, next) {
 
   // 3) send it to user's email. If error reset token and expires as undefined
   try {
-    const resetURL = `${req.protocol}://${req.get(
-      'host'
-    )}/api/v1/users/resetPassword/${resetToken}`;
+    const resetURL = `http://localhost:3000/reset-password?verify=${resetToken}`;
 
     await new Email(user, resetURL).sendPasswordReset();
 

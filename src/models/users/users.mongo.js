@@ -46,8 +46,9 @@ const userSchema = new Schema({
       message: 'Passwords are not the same!',
     },
   },
+  verifyToken: Number,
   role: { type: String, default: 'employee' },
-  isActive: { type: Boolean, default: true, select: false },
+  isActive: { type: Boolean, default: false },
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
@@ -68,12 +69,6 @@ userSchema.pre('save', function (next) {
   // Only run this function if password modified and document is not new
   if (!this.isModified('password') || this.isNew) return next();
   this.passwordChangedAt = Date.now() - 3000;
-  next();
-});
-
-// Pre find hook before any query
-userSchema.pre(/^find/, function (next) {
-  this.find({ isActive: { $ne: false } });
   next();
 });
 

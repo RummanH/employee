@@ -63,6 +63,14 @@ class Email {
     await this.send('welcome', 'Welcome to our Family!');
   }
 
+  async sendReset() {
+    await this.send('reseted', 'Password reset!');
+  }
+
+  async sendVerify() {
+    await this.send('verify', 'your verification code');
+  }
+
   async sendPasswordReset() {
     await this.send(
       'passReset',

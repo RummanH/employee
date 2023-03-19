@@ -7,6 +7,7 @@ const {
   httpResetPassword,
   httpChangePassword,
   httpProtect,
+  httpVerifyUser,
 } = require('../controllers/auth.controller');
 const {
   httpUpdateMe,
@@ -19,6 +20,7 @@ const {
 const catchAsync = require('../services/catchAsync');
 
 const router = Router();
+router.route('/verify/email').post(catchAsync(httpVerifyUser));
 
 // Not RestFul for all users
 router.route('/signup').post(catchAsync(httpSignupUser));

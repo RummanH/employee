@@ -8,6 +8,7 @@ const {
   getOneUserByToken,
   getOneUserById,
   saveUser,
+  deleteUser,
 } = require('../models/users/users.model');
 const AppError = require('../services/AppError');
 const Email = require('../services/Email');
@@ -41,6 +42,8 @@ async function httpSignupUser(req, res, next) {
     return next(new AppError('User already exist!', 400));
   }
 
+  const verifyToken = Math.floor(100000 + Math.random() * 900000);
+
   // Do not give whole body because user might give his role
   const user = await saveUser({
     firstName,
@@ -50,6 +53,7 @@ async function httpSignupUser(req, res, next) {
     email,
     password,
     passwordConfirm,
+    verifyToken,
   });
 
   // 2) Create token and log the user in
@@ -57,12 +61,11 @@ async function httpSignupUser(req, res, next) {
 
   // If for some reason email not sent still log the user in
   try {
-    const url = 'example.com';
-    await new Email(user, url).sendWelcome();
+    await new Email(user, verifyToken).sendVerify();
     return res.status(201).json({ status: 'success', data: { user } });
   } catch (err) {
-    console.log('error in sending the email', err);
-    return res.status(201).json({ status: 'success', data: { user } });
+    await deleteUser(user._id);
+    return next(new AppError('Please try again later!', 400));
   }
 }
 
@@ -82,11 +85,42 @@ async function httpLoginUser(req, res, next) {
     return next(new AppError('Incorrect email or password!', 401));
   }
 
+  if (!user.isActive) {
+    return next(new AppError('User is not active!', 400));
+  }
+
   // 4) Create token and log the user in
   const token = await user.createJWT();
   user.password = undefined;
   sendCookie(token, res);
   return res.status(200).json({ status: 'success', token, data: { user } });
+}
+
+async function httpVerifyUser(req, res, next) {
+  const { email, verifyToken } = req.body;
+
+  // 1) Check if email and password exist
+  if (!email || !verifyToken) {
+    return next(new AppError('Please provide email and verify token!', 400));
+  }
+
+  // 2) Get user based on email
+  const user = await getOneUserByEmail(email);
+
+  if (!user) {
+    return next(new AppError('User not exist!', 400));
+  }
+
+  if (user.verifyToken !== verifyToken) {
+    return next(new AppError('Invalid verification number', 400));
+  }
+
+  user.verifyToken = undefined;
+  user.isActive = true;
+  await user.save({ validateBeforeSave: false });
+
+  user.password = undefined;
+  return res.status(200).json({ status: 'success', data: { user } });
 }
 
 async function httpProtect(req, res, next) {
@@ -238,4 +272,5 @@ module.exports = {
   httpForgotPassword,
   httpResetPassword,
   httpChangePassword,
+  httpVerifyUser,
 };

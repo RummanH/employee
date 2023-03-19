@@ -32,7 +32,7 @@ router.route('/logout').get(logout);
 
 // For logged in users only
 
-router.use(catchAsync(httpProtect));
+// router.use(catchAsync(httpProtect));
 
 router.route('/changePassword').patch(catchAsync(httpChangePassword));
 router.route('/updateMe').patch(catchAsync(httpUpdateMe));

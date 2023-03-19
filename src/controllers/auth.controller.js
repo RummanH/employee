@@ -263,6 +263,14 @@ async function httpChangePassword(req, res, next) {
   return res.status(200).json({ status: 'success', token, data: { user } });
 }
 
+function logout(req, res, next) {
+  res.cookie('token', 'logged', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(200).json({ status: 'success' });
+}
+
 module.exports = {
   httpSignupUser,
   httpLoginUser,
@@ -271,4 +279,5 @@ module.exports = {
   httpResetPassword,
   httpChangePassword,
   httpVerifyUser,
+  logout,
 };

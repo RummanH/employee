@@ -20,7 +20,7 @@ app.use(helmet());
 // Allowing cross origin resource sharing
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://safetyap.netlify.app'],
     credentials: true,
   })
 );

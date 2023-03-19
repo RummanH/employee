@@ -8,6 +8,7 @@ const {
   httpChangePassword,
   httpProtect,
   httpVerifyUser,
+  logout,
 } = require('../controllers/auth.controller');
 const {
   httpUpdateMe,
@@ -27,6 +28,7 @@ router.route('/signup').post(catchAsync(httpSignupUser));
 router.route('/login').post(catchAsync(httpLoginUser));
 router.route('/forgotPassword').post(catchAsync(httpForgotPassword));
 router.route('/resetPassword/:token').patch(catchAsync(httpResetPassword));
+router.route('/logout').get(logout);
 
 // For logged in users only
 

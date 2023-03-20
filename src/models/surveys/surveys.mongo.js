@@ -3,16 +3,13 @@ const { Schema, model } = require('mongoose');
 const reportSchema = new Schema(
   {
     department: {
-      type: String,
-      required: [true, 'Please select a department!'],
+      type: String
     },
     workArea: {
       type: String,
-      required: [true, 'Please select a working area!'],
     },
     dateTime: {
-      type: Date,
-      required: [true, 'Please provide date and time!'],
+      type: Date
     },
     typeNearMiss: [String],
     typeNearMissDescribe: {
@@ -23,20 +20,17 @@ const reportSchema = new Schema(
       type: String,
     },
     potentialIncident: {
-      type: String,
-      required: [true, 'Please provide a potential incident!'],
+      type: String
     },
     isHseViolated: {
       type: Boolean,
     },
     photo: { type: String },
     observerName: {
-      type: String,
-      required: [true, 'Please provide observer name!'],
+      type: String
     },
     reportDate: {
-      type: Date,
-      required: [true, 'Please provide report date!'],
+      type: Date
     },
     createdBy: {
       type: Schema.Types.ObjectId,

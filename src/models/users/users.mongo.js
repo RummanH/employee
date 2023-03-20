@@ -47,7 +47,7 @@ const userSchema = new Schema({
     },
   },
   verifyToken: Number,
-  role: { type: String, default: 'employee' },
+  role: { type: String, default: 'Employee' },
   isActive: { type: Boolean, default: false },
   passwordChangedAt: Date,
   passwordResetToken: String,

@@ -41,6 +41,10 @@ const reportSchema = new Schema(
     createdBy: {
       type: Schema.Types.ObjectId,
     },
+    isReviewed: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

@@ -92,7 +92,6 @@ async function httpLoginUser(req, res, next) {
   // 4) Create token and log the user in
   const token = await user.createJWT();
   user.password = undefined;
-  sendCookie(token, res);
   return res.status(200).json({ status: 'success', token, data: { user } });
 }
 

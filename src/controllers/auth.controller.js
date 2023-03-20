@@ -183,7 +183,7 @@ async function httpForgotPassword(req, res, next) {
 
   // 3) send it to user's email. If error reset token and expires as undefined
   try {
-    const resetURL = `http://localhost:3000/reset-password?verify=${resetToken}`;
+    const resetURL = `https://safetyap.netlify.app/reset-password/{resetToken}`;
 
     await new Email(user, resetURL).sendPasswordReset();
 

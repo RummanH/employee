@@ -6,7 +6,6 @@ const xss = require('xss-clean');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
-const hpp = require('hpp');
 
 const globalErrorHandler = require('./controllers/error.controller');
 const apiV1Router = require('./routes/api.v1.router');

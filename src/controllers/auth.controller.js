@@ -36,6 +36,7 @@ async function httpSignupUser(req, res, next) {
     email,
     password,
     passwordConfirm,
+    role
   } = req.body;
 
   // 1) Check if user already exist
@@ -55,6 +56,7 @@ async function httpSignupUser(req, res, next) {
     password,
     passwordConfirm,
     verifyToken,
+    role
   });
 
   // 2) Create token and log the user in

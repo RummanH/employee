@@ -19,9 +19,7 @@ const reportSchema = new Schema(
     typeConcernDescribe: {
       type: String,
     },
-    potentialIncident: {
-      type: String,
-    },
+    potentialIncident: [String],
     isHseViolated: {
       type: Boolean,
     },
@@ -52,8 +50,6 @@ reportSchema.virtual('feedback', {
   foreignField: 'report',
   localField: '_id',
 });
-
-
 
 const Report = model('Report', reportSchema);
 module.exports = Report;

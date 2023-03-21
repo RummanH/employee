@@ -20,13 +20,15 @@ const resizePhoto = async (req, res, next) => {
     if (req.file.mimetype.split('/')[0] !== 'image') {
       return next(new AppError('Please upload a photo!'));
     }
-
-    const file = await sharp(req.file.buffer)
+    const fileName = `${Date.now() + Math.random()}.jpg`;
+    await sharp(req.file.buffer)
       .toFormat('jpeg')
       .jpeg({ quality: 90 })
-      .toFile(`./public/img/${Date.now() + Math.random()}.jpeg`);
+      .toFile(`./public/img/${fileName}`);
 
-    return res.status(200).json({ status: 'success', data: { image: file } });
+    return res
+      .status(200)
+      .json({ status: 'success', data: { image: fileName } });
   } catch (err) {
     return next(err);
   }

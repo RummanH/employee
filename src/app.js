@@ -6,12 +6,14 @@ const xss = require('xss-clean');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
+const path = require('path');
 
 const globalErrorHandler = require('./controllers/error.controller');
 const apiV1Router = require('./routes/api.v1.router');
 const AppError = require('./services/AppError');
 
 const app = express();
+app.use(express.static(path.join(__dirname, '..', 'public', 'img')));
 
 // Set security HTTP headers
 app.use(helmet());

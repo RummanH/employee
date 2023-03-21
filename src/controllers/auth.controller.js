@@ -128,9 +128,7 @@ async function httpVerifyUser(req, res, next) {
 async function httpProtect(req, res, next) {
   // 1) Getting token and check if it's there
   let token;
-  if (req.cookies.token) {
-    token = req.cookies.token;
-  } else if (
+  if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {

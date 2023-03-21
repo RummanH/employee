@@ -12,6 +12,7 @@ const {
 } = require('../models/users/users.model');
 const AppError = require('../services/AppError');
 const Email = require('../services/Email');
+const User = require('../models/users/users.mongo');
 
 function sendCookie(token, res) {
   const cookieOptions = {
@@ -70,20 +71,22 @@ async function httpSignupUser(req, res, next) {
 }
 
 async function httpLoginUser(req, res, next) {
-  const { email, password } = req.body;
+  const { employeeId, password } = req.body;
 
   // 1) Check if email and password exist
-  if (!email || !password) {
-    return next(new AppError('Please provide email and password!', 400));
+  if (!employeeId || !password) {
+    return next(new AppError('Please employeeId and password!', 400));
   }
 
   // 2) Get user based on email
-  const user = await getOneUserByEmail(email);
+  const user = await User.findOne({ employeeId }).select('+password');
 
   // 3) Check if user exist and password correct
   if (!user || !(await user.correctPassword(password, user.password))) {
-    return next(new AppError('Incorrect email or password!', 401));
+    return next(new AppError('Incorrect employeeId or password!', 401));
   }
+
+  console.log(user);
 
   if (!user.isActive) {
     return next(new AppError('User is not active!', 400));

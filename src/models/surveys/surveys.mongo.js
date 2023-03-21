@@ -3,13 +3,13 @@ const { Schema, model } = require('mongoose');
 const reportSchema = new Schema(
   {
     department: {
-      type: String
+      type: String,
     },
     workArea: {
       type: String,
     },
     dateTime: {
-      type: Date
+      type: Date,
     },
     typeNearMiss: [String],
     typeNearMissDescribe: {
@@ -20,17 +20,17 @@ const reportSchema = new Schema(
       type: String,
     },
     potentialIncident: {
-      type: String
+      type: String,
     },
     isHseViolated: {
       type: Boolean,
     },
     photo: { type: String },
     observerName: {
-      type: String
+      type: String,
     },
     reportDate: {
-      type: Date
+      type: Date,
     },
     createdBy: {
       type: Schema.Types.ObjectId,
@@ -46,6 +46,14 @@ const reportSchema = new Schema(
     toJSON: { virtuals: true },
   }
 );
+
+reportSchema.virtual('feedback', {
+  ref: 'Feedback',
+  foreignField: 'report',
+  localField: '_id',
+});
+
+
 
 const Report = model('Report', reportSchema);
 module.exports = Report;

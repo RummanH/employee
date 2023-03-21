@@ -33,7 +33,7 @@ async function httpUpdateReport(req, res, next) {
 }
 
 async function httpGetOneReport(req, res, next) {
-  const report = await Report.findById(req.params._id);
+  const report = await Report.findById(req.params._id).populate("feedback")
   if (!report) {
     return next(new AppError('Report not found!', 404));
   }

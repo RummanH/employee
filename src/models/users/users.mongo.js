@@ -24,7 +24,6 @@ const userSchema = new Schema({
   employeeId: {
     type: String,
     required: [true, 'Please provide your employee id!'],
-    unique: true,
   },
   phone: {
     type: String,

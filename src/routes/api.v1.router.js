@@ -17,13 +17,14 @@ const resizePhoto = async (req, res, next) => {
     if (!req.file) {
       return next(new AppError('Please upload a photo!'));
     }
+    console.log(req.file);
     if (req.file.mimetype.split('/')[0] !== 'image') {
       return next(new AppError('Please upload a photo!'));
     }
-    const fileName = `${Date.now() + Math.random()}.jpg`;
+    const fileName = `${req.file.originalname.split('.')[0]}.jpeg`;
     await sharp(req.file.buffer)
       .toFormat('jpeg')
-      .jpeg({ quality: 90 })
+      .jpeg({ quality: 80 })
       .toFile(`./public/img/${fileName}`);
 
     return res

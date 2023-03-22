@@ -11,7 +11,7 @@ const feedbackSchema = new Schema(
     correctiveAction: {
       type: String,
     },
-    photo: { type: String },
+    photo: [String],
     photoWorkArea: {
       type: String,
     },

@@ -23,7 +23,7 @@ const reportSchema = new Schema(
     isHseViolated: {
       type: Boolean,
     },
-    photo: { type: String },
+    photo: [String],
     observerName: {
       type: String,
     },

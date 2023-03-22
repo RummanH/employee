@@ -12,7 +12,7 @@ async function httpCreateFeedback(req, res, next) {
     isReviewed: true,
   });
   const reporter = await User.findById(report.createdBy);
-
+  await new Email(reporter, 'ut').sendFinal();
   await new Email(reporter, 'ut').sendFinal();
   return res.status(201).json({ status: 'success', data: { feedback } });
 }

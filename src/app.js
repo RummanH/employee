@@ -24,7 +24,7 @@ app.use(
     origin: [
       'http://localhost:3000',
       'https://safetyap.netlify.app',
-      'https://apps-sos.com/',
+      'https://apps-sos.com',
     ],
     credentials: true,
   })

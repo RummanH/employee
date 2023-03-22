@@ -2,13 +2,18 @@ const Report = require('../models/surveys/surveys.mongo');
 const Feedback = require('../models/feedback/feedback.mongo');
 const ApiFeatures = require('../services/ApiFeatures');
 const AppError = require('../services/AppError');
+const Email = require('../services/Email');
+const User = require('../models/users/users.mongo');
 
 async function httpCreateFeedback(req, res, next) {
   req.body.createdBy = req.user._id;
   const feedback = await Feedback.create(req.body);
-  await Report.findByIdAndUpdate(req.body.report, {
+  const report = await Report.findByIdAndUpdate(req.body.report, {
     isReviewed: true,
   });
+  const reporter = await User.findById(report.createdBy);
+
+  await new Email(reporter, 'ut').sendFinal();
   return res.status(201).json({ status: 'success', data: { feedback } });
 }
 

@@ -71,6 +71,10 @@ class Email {
     await this.send('verify', 'your verification code');
   }
 
+  async sendFinal() {
+    await this.send('final', 'Survey report!');
+  }
+
   async sendPasswordReset() {
     await this.send(
       'passReset',

@@ -93,8 +93,6 @@ async function httpLoginUser(req, res, next) {
     return next(new AppError('Incorrect employeeId or password!', 401));
   }
 
-  console.log(user);
-
   if (!user.isActive) {
     return next(new AppError('User is not active!', 400));
   }
@@ -190,7 +188,7 @@ async function httpForgotPassword(req, res, next) {
 
   // 3) send it to user's email. If error reset token and expires as undefined
   try {
-    const resetURL = `https://safetyap.netlify.app/reset-password/{resetToken}`;
+    const resetURL = `https://apps-sos.com/reset-password/${resetToken}`;
 
     await new Email(user, resetURL).sendPasswordReset();
 

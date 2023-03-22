@@ -3,9 +3,7 @@ const ApiFeatures = require('../services/ApiFeatures');
 const AppError = require('../services/AppError');
 
 async function httpCreateReport(req, res, next) {
-  console.log(req.user);
   req.body.createdBy = req.user._id;
-  console.log(req.body);
   const report = await Report.create(req.body);
   return res.status(201).json({ status: 'success', data: { report } });
 }

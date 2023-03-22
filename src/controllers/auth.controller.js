@@ -36,11 +36,16 @@ async function httpSignupUser(req, res, next) {
     email,
     password,
     passwordConfirm,
-    role
+    role,
   } = req.body;
 
   // 1) Check if user already exist
   if (await getOneUserByEmail(email)) {
+    return next(new AppError('User already exist!', 400));
+  }
+
+  const em = await User.findOne({ employeeId });
+  if (em) {
     return next(new AppError('User already exist!', 400));
   }
 
@@ -56,7 +61,7 @@ async function httpSignupUser(req, res, next) {
     password,
     passwordConfirm,
     verifyToken,
-    role
+    role,
   });
 
   // 2) Create token and log the user in

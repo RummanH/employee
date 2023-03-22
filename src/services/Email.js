@@ -75,6 +75,10 @@ class Email {
     await this.send('final', 'Survey report!');
   }
 
+  async sendFeed() {
+    await this.send('feed', 'Feedback submitted!');
+  }
+
   async sendPasswordReset() {
     await this.send(
       'passReset',

@@ -17,7 +17,6 @@ const resizePhoto = async (req, res, next) => {
     if (!req.file) {
       return next(new AppError('Please upload a photo!'));
     }
-    console.log(req.file);
     if (req.file.mimetype.split('/')[0] !== 'image') {
       return next(new AppError('Please upload a photo!'));
     }

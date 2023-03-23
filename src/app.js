@@ -16,9 +16,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, '..', 'public', 'img')));
 
 // Set security HTTP headers
-helmet({
-  crossOriginResourcePolicy: false,
-})
+
 
 // Allowing cross origin resource sharing
 app.use(

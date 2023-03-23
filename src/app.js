@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 // Set security HTTP headers
 helmet({
   crossOriginResourcePolicy: false,
-});
+})
 
 // Allowing cross origin resource sharing
 app.use(

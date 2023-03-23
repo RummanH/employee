@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const multer = require('multer');
 const sharp = require('sharp');
+const path = require('path');
 
 const userRouter = require('./users.router');
 const reportRouter = require('./report.router');
@@ -20,11 +21,13 @@ const resizePhoto = async (req, res, next) => {
     if (req.file.mimetype.split('/')[0] !== 'image') {
       return next(new AppError('Please upload a photo!'));
     }
+
+    console.log('hi');
     const fileName = `${req.file.originalname.split('.')[0]}.jpeg`;
     await sharp(req.file.buffer)
       .toFormat('jpeg')
       .jpeg({ quality: 80 })
-      .toFile(`./public/img/${fileName}`);
+      .toFile(`./public/${fileName}`);
 
     return res
       .status(200)
@@ -42,3 +45,5 @@ router.use('/feedbacks', feedbackRouter);
 router.route('/upload').post(uploadSinglePhoto, resizePhoto);
 
 module.exports = router;
+
+// .toFile(`./public/img/${fileName}`);

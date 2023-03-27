@@ -1,6 +1,5 @@
 const http = require('http');
 require('dotenv').config();
-const functions = require('firebase-admin');
 
 process.on('uncaughtException', (err) => {
   console.error(`Uncaught exception: ${err.name}, ${err.message}`);
@@ -34,5 +33,3 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
   });
 });
-
-exports.api = functions.https.onRequest(app);

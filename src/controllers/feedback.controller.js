@@ -12,8 +12,14 @@ async function httpCreateFeedback(req, res, next) {
     isReviewed: true,
   });
   const reporter = await User.findById(report.createdBy);
-  await new Email(reporter, 'ut').sendFinal();
-  await new Email(req.user, 'ut').sendFeed();
+  if (req.body.type === 'feedback') {
+    await new Email(reporter, 'ut').sendFeToEm();
+    await new Email(req.user, 'ut').sendFeToSf();
+  }
+  if (req.body.type === 'recommendation') {
+    await new Email(reporter, 'ut').sendRecToEm();
+    await new Email(req.user, 'ut').sendRecToSf();
+  }
 
   return res.status(201).json({ status: 'success', data: { feedback } });
 }

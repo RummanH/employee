@@ -28,6 +28,10 @@ const feedbackSchema = new Schema(
     createdBy: {
       type: Schema.Types.ObjectId,
     },
+    type: {
+      type: String,
+      default: 'feedback',
+    },
   },
   {
     timestamps: true,

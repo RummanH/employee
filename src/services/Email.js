@@ -63,20 +63,28 @@ class Email {
     await this.send('welcome', 'Welcome to our Family!');
   }
 
+  async sendRecToSf() {
+    await this.send('recToSf', 'Thank you!');
+  }
+
+  async sendRecToEm() {
+    await this.send('recToEm', 'Thank you!');
+  }
+
+  async sendFeToSf() {
+    await this.send('feToSf', 'Thank you!');
+  }
+
+  async sendFeToEm() {
+    await this.send('feToEm', 'Thank you!');
+  }
+
   async sendReset() {
     await this.send('reseted', 'Password reset!');
   }
 
   async sendVerify() {
     await this.send('verify', 'your verification code');
-  }
-
-  async sendFinal() {
-    await this.send('final', 'Survey report!');
-  }
-
-  async sendFeed() {
-    await this.send('feed', 'Feedback submitted!');
   }
 
   async sendPasswordReset() {
